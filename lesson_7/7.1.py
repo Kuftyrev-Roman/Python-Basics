@@ -8,38 +8,25 @@
 """
 
 class Matrix:
-    def __init__(self, args):
-        self.args = args
+    def __init__(self, input_data):
+        self.input = input_data
 
-    # def __str__(self):
-        # return [f'{self.args[i]}\n{self.args[i]}\n' for i in enumerate(self.args)]
+    def __str__(self):
+        return '\n'.join([' '.join([str(elem) for elem in line]) for line in self.input])
 
     def __add__(self, other):
-        result = [[0 for j in range(len(self.args[0]))] for i in self.args]
-        for i in range(len(self.args)):
-            for j in range(len(self.args[0])):
-                result[i][j] = self.args[i][j] + other.args[i][j]
+        answer = []
+        if len(self.input) == len(other.input) and len(self.input[0]) == len(other.input[0]):
+            for line_1, line_2 in zip(self.input, other.input):
+                answer.append([x + y for x, y in zip(line_1, line_2)])
+        else:
+            return 'Problems with shape'
+        result = Matrix(answer)
         return result
 
 
-a = Matrix([[1, 2, 3], [4, 5, 6]])
-b = Matrix([[-1, -2, -3], [-4, -5, -6]])
-print(a + b)
-# print(a)
-# print(b)
+matrix_1 = Matrix([[1, 2], [3, 4], [5, 6], [7, 8]])
+matrix_2 = Matrix([[2, 3], [4, 5], [6, 7], [10, 20]])
 
-
-
-# class Matrix:
-#     def __init__(self, args):
-#         self.args = args
-#         print(len(self.args))
-#     def __str__(self):
-#         # for i in range(len(self.args)):
-#         return (f'{self.args[0]}\n {self.args[1]}'
-#
-#
-# #        return f'{self.args}'
-#
-# a = Matrix([[1, 2, 3], [4, 5, 6]])
-# print(a)
+print(matrix_1)
+print(matrix_1 + matrix_2)
